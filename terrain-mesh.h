@@ -13,7 +13,10 @@ namespace terrain_mesh_generator
     class TerrainMesh
     {
     public:
-        TerrainMesh(vector<T> heights, T spacing);
+        // TerrainMesh(vector<T> heights, T spacing);
+        TerrainMesh(vector<T> heights, T spacing)
+        {
+        }
 
         int width_;
         vector<vec3<T>> vertices_;
