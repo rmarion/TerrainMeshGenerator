@@ -9,6 +9,8 @@ namespace terrain_mesh_generator
         T x;
         T y;
         T z;
+
+        vec3(T x, T y, T z) : x(x), y(y), z(z) {}
     };
 }
 
