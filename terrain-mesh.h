@@ -35,6 +35,11 @@ namespace terrain_mesh_generator
             normals_ = GetNormals(vertices_, width_);
 
             triangles_ = GetTriangles(width_);
+
+            uv0_ = GetUvs(width_);
+            uv1_ = GetUvs(width_);
+            uv2_ = GetUvs(width_);
+            uv3_ = GetUvs(width_);
         }
 
         int width_;
@@ -93,7 +98,7 @@ namespace terrain_mesh_generator
                 for (int column = 0; column < width; column++)
                 {
                     currentCount = 0;
-                    currentSum = Vector3<T>(0.1, 0.1, 0.1);
+                    currentSum = Vector3<T>::zero();
                     currentIndex = GetVertIndex(column, row, width);
                     if (column > 0)
                     {
@@ -163,6 +168,22 @@ namespace terrain_mesh_generator
             }
 
             return triangles;
+        }
+
+        static vector<vec2<T>> GetUvs(float width)
+        {
+            vector<vec2<T>> uvs;
+            uvs.reserve(width * width);
+
+            for (int row = 0; row < width; row++)
+            {
+                for (int column = 0; column < width; column++)
+                {
+                    uvs.push_back(vec2<T>(column / width, row / width));
+                }
+            }
+
+            return uvs;
         }
     };
 

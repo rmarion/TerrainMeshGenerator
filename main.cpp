@@ -39,5 +39,15 @@ int main(void)
     {
         std::cout << i << ", ";
     }
+
+    std::cout << std::endl
+              << std::endl
+              << "UV0: "
+              << std::endl;
+    for (auto &u : foo.uv0_)
+    {
+        std::cout << "(" << u.x << ", " << u.y << "), ";
+    }
+
     std::cout << std::endl;
 }
