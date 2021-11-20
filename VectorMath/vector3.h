@@ -27,14 +27,19 @@ namespace terrain_mesh_generator::vector_math
         Vector3<T>(Vector3<T> &&other) = default;
         ~Vector3<T>() = default;
 
-        Vector3<T> zero()
+        static Vector3<T> zero()
         {
             return Vector3<T>(0, 0, 0);
         }
 
-        Vector3<T> one()
+        static Vector3<T> one()
         {
             return Vector3<T>(1, 1, 1);
+        }
+
+        Vector3<T> operator=(const Vector3<T> &other)
+        {
+            return Vector3<T>(other);
         }
 
         bool operator==(const Vector3<T> &other) const

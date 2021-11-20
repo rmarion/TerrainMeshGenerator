@@ -32,25 +32,9 @@ namespace terrain_mesh_generator
 
             vertices_ = GetVertices(numVerts, width_, spacing, heights);
 
-            // Normals
+            normals_ = GetNormals(vertices_, width_);
 
-            // Triangles
-
-            triangles_.reserve((width_ - 1) * (width_ - 1));
-
-            for (int row = 0; row < width_ - 1; row++)
-            {
-                for (int column = 0; column < width_ - 1; column++)
-                {
-                    triangles_.push_back(GetVertIndex(column, row + 1, width_));
-                    triangles_.push_back(GetVertIndex(column + 1, row, width_));
-                    triangles_.push_back(GetVertIndex(column, row, width_));
-
-                    triangles_.push_back(GetVertIndex(column + 1, row, width_));
-                    triangles_.push_back(GetVertIndex(column, row + 1, width_));
-                    triangles_.push_back(GetVertIndex(column + 1, row + 1, width_));
-                }
-            }
+            triangles_ = GetTriangles(width_);
         }
 
         int width_;
@@ -86,6 +70,99 @@ namespace terrain_mesh_generator
             }
 
             return vertices;
+        }
+
+        static vector<Vector3<T>> GetNormals(vector<Vector3<T>> vertices, int width)
+        {
+            vector<Vector3<T>> normals;
+            normals.reserve(vertices.size());
+
+            // In order to make these smooth, we have to make each normal the average of the
+            // normals for adjacent points.
+            //
+            // However, if we're calculating these in a '+' pattern, then there won't be any
+            // duplicates. Therefore we should calculate these per vertex as we iterate over them
+            //
+            // There could be optimization done with the vertex subtraction
+            int maxWidth = width - 1;
+            int currentCount;
+            int currentIndex;
+            Vector3<T> currentSum;
+            for (int row = 0; row < width; row++)
+            {
+                for (int column = 0; column < width; column++)
+                {
+                    currentCount = 0;
+                    currentSum = Vector3<T>(0.1, 0.1, 0.1);
+                    currentIndex = GetVertIndex(column, row, width);
+                    if (column > 0)
+                    {
+                        if (row > 0)
+                        {
+                            // ((x, y) - (x - 1, y)) x ((x, y) - (x, y - 1))
+                            auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column - 1, row, width)];
+                            auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row - 1, width)];
+                            currentSum += lhs * rhs;
+                            currentCount++;
+                        }
+
+                        if (row < maxWidth)
+                        {
+                            // ((x, y) - (x - 1, y)) x ((x, y) - (x, y + 1))
+                            auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column - 1, row, width)];
+                            auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row + 1, width)];
+                            currentSum += lhs * rhs;
+                            currentCount++;
+                        }
+                    }
+
+                    if (column < maxWidth)
+                    {
+                        if (row > 0)
+                        {
+                            // ((x, y) - (x + 1, y)) x ((x, y) - (x, y - 1))
+                            auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column + 1, row, width)];
+                            auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row - 1, width)];
+                            currentSum += lhs * rhs;
+                            currentCount++;
+                        }
+
+                        if (row < maxWidth)
+                        {
+                            // ((x, y) - (x + 1, y)) x ((x, y) - (x, y + 1))
+                            auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column + 1, row, width)];
+                            auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row + 1, width)];
+                            currentSum += lhs * rhs;
+                            currentCount++;
+                        }
+                    }
+                    normals.push_back(currentSum / currentCount); // currentCount will always be at least 1
+                }
+            }
+
+            return normals;
+        }
+
+        static vector<int> GetTriangles(int width)
+        {
+            vector<int> triangles;
+            triangles.reserve((width - 1) * (width - 1));
+
+            for (int row = 0; row < width - 1; row++)
+            {
+                for (int column = 0; column < width - 1; column++)
+                {
+                    triangles.push_back(GetVertIndex(column, row + 1, width));
+                    triangles.push_back(GetVertIndex(column + 1, row, width));
+                    triangles.push_back(GetVertIndex(column, row, width));
+
+                    triangles.push_back(GetVertIndex(column + 1, row, width));
+                    triangles.push_back(GetVertIndex(column, row + 1, width));
+                    triangles.push_back(GetVertIndex(column + 1, row + 1, width));
+                }
+            }
+
+            return triangles;
         }
     };
 
