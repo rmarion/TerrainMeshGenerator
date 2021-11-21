@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
-#include "terrain-mesh.h"
+#include "TerrainMesh/terrain-mesh.h"
 
 using std::vector;
-using terrain_mesh_generator::TerrainMesh;
+using terrain_mesh_generator::terrain_mesh::TerrainMesh;
 
 int main(void)
 {
@@ -14,7 +14,7 @@ int main(void)
         heights[height] = (float)height;
     }
 
-    TerrainMesh<float> foo(heights, 1.0);
+    TerrainMesh foo(heights, 100.0);
 
     std::cout << "Vertices: " << std::endl;
     for (auto &v : foo.vertices_)
