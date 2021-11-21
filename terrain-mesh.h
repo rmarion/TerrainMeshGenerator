@@ -43,14 +43,14 @@ namespace terrain_mesh_generator
         }
 
         int width_;
-        vector<Vector3<T>> vertices_;
+        vector<Vector3> vertices_;
         vector<int> triangles_;
-        vector<Vector3<T>> normals_;
+        vector<Vector3> normals_;
         vector<vec2<T>> uv0_;
         vector<vec2<T>> uv1_;
         vector<vec2<T>> uv2_;
         vector<vec2<T>> uv3_;
-        vector<Vector3<T>> tangents_;
+        vector<Vector3> tangents_;
 
     private:
         static int GetVertIndex(int column, int row, int rowSize)
@@ -58,9 +58,9 @@ namespace terrain_mesh_generator
             return column + row * rowSize;
         }
 
-        static vector<Vector3<T>> GetVertices(int numVerts, int width, T spacing, vector<T> heights)
+        static vector<Vector3> GetVertices(int numVerts, int width, T spacing, vector<T> heights)
         {
-            vector<Vector3<T>> vertices;
+            vector<Vector3> vertices;
             vertices.reserve(numVerts);
 
             int rowOffset = 0;
@@ -77,9 +77,9 @@ namespace terrain_mesh_generator
             return vertices;
         }
 
-        static vector<Vector3<T>> GetNormals(vector<Vector3<T>> vertices, int width)
+        static vector<Vector3> GetNormals(vector<Vector3> vertices, int width)
         {
-            vector<Vector3<T>> normals;
+            vector<Vector3> normals;
             normals.reserve(vertices.size());
 
             // In order to make these smooth, we have to make each normal the average of the
@@ -92,13 +92,13 @@ namespace terrain_mesh_generator
             int maxWidth = width - 1;
             int currentCount;
             int currentIndex;
-            Vector3<T> currentSum;
+            Vector3 currentSum;
             for (int row = 0; row < width; row++)
             {
                 for (int column = 0; column < width; column++)
                 {
                     currentCount = 0;
-                    currentSum = Vector3<T>::zero();
+                    currentSum = Vector3::zero();
                     currentIndex = GetVertIndex(column, row, width);
                     if (column > 0)
                     {
