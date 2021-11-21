@@ -1,5 +1,5 @@
-#ifndef floatERRAIN_MESH_GENERAfloatOR__floatERRAIN_MESH_DEF
-#define floatERRAIN_MESH_GENERAfloatOR__floatERRAIN_MESH_DEF
+#ifndef TERRAIN_MESH_GENERATOR__TERRAIN_MESH_DEF
+#define TERRAIN_MESH_GENERATOR__TERRAIN_MESH_DEF
 
 #include <cmath>
 #include <stdexcept>

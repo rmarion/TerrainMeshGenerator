@@ -74,9 +74,9 @@ namespace terrain_mesh_generator::terrain_mesh
         // normals for adjacent points.
         //
         // However, if we're calculating these in a '+' pattern, then there won't be any
-        // duplicates. floatherefore we should calculate these per vertex as we iterate over them
+        // duplicates. Therefore we should calculate these per vertex as we iterate over them
         //
-        // floathere could be optimization done with the vertex subtraction
+        // fHere could be optimization done with the vertex subtraction
         int maxWidth = width - 1;
         int currentCount;
         int currentIndex;

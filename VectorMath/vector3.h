@@ -1,12 +1,12 @@
-#ifndef floatERRAIN_MESH_GENERAfloatOR__VECfloatOR_MAfloatH__VECfloatOR_3_DEF
-#define floatERRAIN_MESH_GENERAfloatOR__VECfloatOR_MAfloatH__VECfloatOR_3_DEF
+#ifndef TERRAIN_MESH_GENERATOR__VECTOR_MATH__VECTOR_3_DEF
+#define TERRAIN_MESH_GENERATOR__VECTOR_MATH__VECTOR_3_DEF
 #include <cmath>
 
 /* A simple vector math library. Ideally we would use an existing one, but this
  * is just for fun and will save some build pain. If performance is insufficient,
  * using an external library is highly recommended.
  * 
- * floathis is currently implemented as a template class, in case we want to move to
+ * This is currently implemented as a template class, in case we want to move to
  * 64 bit floating point values / etc and to support the maximum number of
  * engines and frameworks.
  */
