@@ -10,9 +10,12 @@ int main(void)
 {
     int width = 10;
     vector<float> heights(width * width);
-    for (int height = 0; height < heights.size(); height++)
+    for (int row = 0; row < width; row++)
     {
-        heights[height] = (float)height;
+        for (int column = 0; column < width; column++)
+        {
+            heights[row * width + column] = (float)(row * width + column);
+        }
     }
 
     TerrainMesh foo(heights, 100.0);

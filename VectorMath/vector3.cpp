@@ -84,7 +84,9 @@ namespace terrain_mesh_generator::vector_math
 
     Vector3 Vector3::operator*=(const float &other)
     {
-        *this = *this * other;
+        this->x *= other;
+        this->y *= other;
+        this->z *= other;
         return *this;
     }
 
@@ -97,7 +99,9 @@ namespace terrain_mesh_generator::vector_math
 
     Vector3 Vector3::operator/=(const float &other)
     {
-        *this = *this / other;
+        this->x /= other;
+        this->y /= other;
+        this->z /= other;
         return *this;
     }
 
