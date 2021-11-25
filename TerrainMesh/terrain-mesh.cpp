@@ -78,14 +78,12 @@ namespace terrain_mesh_generator::terrain_mesh
         //
         // fHere could be optimization done with the vertex subtraction
         int maxWidth = width - 1;
-        int currentCount;
         int currentIndex;
         Vector3 currentSum;
         for (int row = 0; row < width; row++)
         {
             for (int column = 0; column < width; column++)
             {
-                currentCount = 0;
                 currentSum = Vector3::zero();
                 currentIndex = GetVertIndex(column, row, width);
                 if (column > 0)
@@ -97,7 +95,6 @@ namespace terrain_mesh_generator::terrain_mesh
                         auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row - 1, width)];
                         auto wat = lhs * rhs;
                         currentSum += lhs * rhs;
-                        currentCount++;
                     }
 
                     if (row < maxWidth)
@@ -106,7 +103,6 @@ namespace terrain_mesh_generator::terrain_mesh
                         auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column - 1, row, width)];
                         auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row + 1, width)];
                         currentSum += lhs * rhs;
-                        currentCount++;
                     }
                 }
 
@@ -118,7 +114,6 @@ namespace terrain_mesh_generator::terrain_mesh
                         auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column + 1, row, width)];
                         auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row - 1, width)];
                         currentSum += lhs * rhs;
-                        currentCount++;
                     }
 
                     if (row < maxWidth)
@@ -127,10 +122,10 @@ namespace terrain_mesh_generator::terrain_mesh
                         auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column + 1, row, width)];
                         auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row + 1, width)];
                         currentSum += lhs * rhs;
-                        currentCount++;
                     }
                 }
-                normals.push_back(currentSum / currentCount); // currentCount will always be at least 1
+                currentSum.normalize();
+                normals.push_back(currentSum); // currentCount will always be at least 1
             }
         }
 
