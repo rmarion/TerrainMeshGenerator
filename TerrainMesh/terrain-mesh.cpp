@@ -95,6 +95,7 @@ namespace terrain_mesh_generator::terrain_mesh
                         // ((x, y) - (x - 1, y)) x ((x, y) - (x, y - 1))
                         auto lhs = vertices[currentIndex] - vertices[GetVertIndex(column - 1, row, width)];
                         auto rhs = vertices[currentIndex] - vertices[GetVertIndex(column, row - 1, width)];
+                        auto wat = lhs * rhs;
                         currentSum += lhs * rhs;
                         currentCount++;
                     }

@@ -41,7 +41,9 @@ namespace terrain_mesh_generator::vector_math
 
     Vector3 &Vector3::operator+=(const Vector3 &other)
     {
-        *this = *this + other;
+        this->x += other.x;
+        this->y += other.y;
+        this->z += other.z;
         return *this;
     }
 
@@ -54,7 +56,10 @@ namespace terrain_mesh_generator::vector_math
 
     Vector3 &Vector3::operator-=(const Vector3 &other)
     {
-        *this = *this - other;
+        this->x -= other.x;
+        this->y -= other.y;
+        this->z -= other.z;
+
         return *this;
     }
 
