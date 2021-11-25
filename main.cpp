@@ -1,9 +1,10 @@
 #include <iostream>
 #include <vector>
 #include "TerrainMesh/terrain-mesh.h"
-
+#include "VectorMath/vector3.h"
 using std::vector;
 using terrain_mesh_generator::terrain_mesh::TerrainMesh;
+using terrain_mesh_generator::vector_math::Vector3;
 
 int main(void)
 {
